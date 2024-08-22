@@ -1,0 +1,37 @@
+{
+    "firstName": "Quality",
+    "lastName": "Assurance",
+    "gender": "MALE",
+    "email": "QA@kaboodle.co.uk",
+    "password": "!THISisAtest69",
+    "phoneNumber": "+441234567",
+    "dateOfBirth": {
+      "day": "01",
+      "month": "01",
+      "year": "2000"
+    },
+    "address": {
+      "line_1": "1 George Leigh St",
+      "city": "Manchester",
+      "country": "United Kingdom",
+      "postcode": "M4 5DL"
+    },
+    "cardDetails": {
+      "cardNumber": {
+        "visaCard": "4242424242424242",
+        "3ds1": "4000002760003184",
+        "3dsDecline": "4000008400001629",
+        "amexFail": "378282246310005",
+        "cvcCheckFail": "4000000000000101",
+        "fraudAlwaysBlocked": "4100000000000019",
+        "fraudHighestRisk": "4000000000004954",
+        "genericDecline": "4000000000000002",
+        "masterCard": "5555555555554444",
+        "stolenCard": "4000000000009979"
+      },
+      "cvc": 123,
+      "expiryDate": 1232,
+      "postcode": "M4 5DL",
+      "country": "GB"
+    }
+  }
