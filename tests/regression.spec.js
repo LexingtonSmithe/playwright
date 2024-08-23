@@ -1,9 +1,10 @@
 // @ts-check
 import { validateDefaultState, validateTicketSelection } from '../tests/helpers/initialisationHelpers';
 import { validateSuccessToastMessage, addNumberOfTicketsToBasket } from '../tests/helpers/ticketPageHelpers';
-import { validateBasketTotal, clickContinue, addToBasket, validatebasketTimerExists, updateBasketPricesWithTickets, updateBasketPricesWithProtectionPlan } from '../tests/helpers/basketHelpers';
+import { validateBasketTotal, clickContinue, addToBasket, validatebasketTimerExists, updateBasketPricesWithTickets, updateBasketPricesWithProtectionPlan, updateBasketExpectedPrice } from '../tests/helpers/basketHelpers';
 import { registerAsNewCustomer, fillInCustomerDetails, addProtectionPlan, acceptTermsAndConditions } from '../tests/helpers/customerDetailsPageHelpers';
 import { fillInStripeCardDetails } from '../tests/helpers/payementPageHelpers';
+import { validatePaymentSuccess, validateBookingSuccess } from './helpers/successPageHelpers.js';
 
 
 const { test, expect } = require('@playwright/test');
@@ -20,6 +21,7 @@ test('Complete A Booking As A New Customer', async ({ page }) => {
     protectionPrice: 0,
     protectionPlanAdded: false,
     numberOfTickets : 2,
+    expectedPrice: 0,
   };
 
   let initToken = "FILL_ME_IN"
@@ -46,15 +48,11 @@ test('Complete A Booking As A New Customer', async ({ page }) => {
   await acceptTermsAndConditions(page);
   await clickContinue(page);
   await validateBasketTotal(page, basket);
-  
-  await page.waitForTimeout(10000);
+  await page.waitForTimeout(5000);
   await fillInStripeCardDetails(page, customer);
-
-  await page.waitForTimeout(10000);
-
-
-  
-
+  await validatePaymentSuccess(page); 
+  basket = updateBasketExpectedPrice(basket);
+  await validateBookingSuccess(page, basket, newCustomerEmail);
 
 });
 

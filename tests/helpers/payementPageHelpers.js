@@ -8,6 +8,6 @@ export async function fillInStripeCardDetails(page, customer) {
     await stripeFrame.locator('[placeholder="MM / YY"]').fill('04/30');
     await stripeFrame.locator('[placeholder="CVC"]').fill('242');
     await stripeFrame.locator('[placeholder="WS11 1DB"]').fill(customer.address.postcode);
-    await stripeFrame.locator('[data-testid=payment-button]').click(); // TODO: Fix this 
+    await page.locator('[data-testid=payment-button]').click(); 
 
 }

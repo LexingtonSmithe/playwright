@@ -1,15 +1,26 @@
 const { Page, expect } = require('@playwright/test');
 
 export async function validateBasketTotal(page, basket) {
+    let checkedBasket = updateBasketExpectedPrice(basket);
+    let expectedPrice = checkedBasket.expectedPrice;
+    let basketTotal = await getBasketTotal(page);
+    
+    expect(expectedPrice).toEqual(basketTotal.toFixed(2));
+
+}
+
+export function updateBasketExpectedPrice(basket) {
     let expectedPrice = basket.ticketPrice + basket.ticketBookingFee + basket.extraPrice + basket.extraBookingFee;
+    
     if (basket.protectionPlanAdded) {
         
         expectedPrice += basket.protectionPlanPrice;
     }
-    let basketTotal = await getBasketTotal(page);
-    expect(expectedPrice.toFixed(2)).toEqual(basketTotal.toFixed(2));
+  
+    basket.expectedPrice = expectedPrice.toFixed(2);
 
-}
+    return basket;
+  };
 
 export async function getBasketTotal(page) {
     let basketTotalString = await page.locator('[class="basketTotalContainer"]>p').textContent();

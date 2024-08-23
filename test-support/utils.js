@@ -18,26 +18,15 @@ exports.generateNewEmail = function () {
   return newEmail;
 };
 
+exports.calculateExpectedPrice = function (basket) {
+  let expectedPrice = basket.ticketPrice + basket.ticketBookingFee + basket.extraPrice + basket.extraBookingFee;
+  
+  if (basket.protectionPlanAdded) {
+      
+      expectedPrice += basket.protectionPlanPrice;
+  }
 
-// function getStripeField(fieldSelector, attempts = 0) {
-//     if (attempts > 50) throw new Error('too many attempts');
-  
-//     return cy
-//       .get('iframe[name^="__privateStripeFrame"]', { timeout: 10_000, log: false })
-//       .eq(0, { log: false })
-//       .its('0.contentDocument', { log: false })
-//       .find('body', { log: false })
-//       .then((body) => {
-//         const stripeField = body.find(fieldSelector);
-//         if (!stripeField.length) {
-//           return cy.wait(3000, { log: false }).then(() => {
-//             getStripeField(fieldSelector, ++attempts);
-//           });
-//         } else {
-//           return cy.wrap(stripeField);
-//         }
-//       })
-//       .scrollIntoView();
-//   }
-  
-//   exports.getStripeField = getStripeField;
+  basket.expectedPrice = expectedPrice
+
+  return basket;
+};
